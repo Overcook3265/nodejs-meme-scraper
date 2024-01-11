@@ -11,13 +11,19 @@ const websiteHtml = webSite.data;
 
 const urls = extractUrls(websiteHtml);
 
+//===search array for string===
 const picUrls = urls.filter(function (str) {
-  return str.includes(
-    'https://memecomplete.com/edit/https://api.memegen.link/images/',
-  );
+  return str.startsWith('https://api.memegen.link/images/');
 });
+//===cut off array after position 10
 const firstPicUrls = picUrls.slice(0, 10);
-console.log(firstPicUrls);
+
+//===remove width=300 ending where necessary
+const firstPicUrlsShort = firstPicUrls.map(function (adress) {
+  return adress.replace('?width=300', '');
+});
+
+console.log(firstPicUrlsShort);
 
 //===working image downloader===
 // const stream = fs.createWriteStream('01.jpg');

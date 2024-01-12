@@ -4,12 +4,14 @@ import fs from 'fs';
 import https from 'https';
 
 // let shortUrl;
+// ===get website code===
 const webSite = await axios(
   'https://memegen-link-examples-upleveled.netlify.app/',
 );
-
+// ===extract html===
 const websiteHtml = webSite.data;
 
+// ===extract urls as arrays===
 const urls = extractUrls(websiteHtml);
 
 // ===search array for string===
@@ -26,15 +28,68 @@ const firstPicUrlsShort = firstPicUrls.map(function (adress) {
 
 // console.log(firstPicUrlsShort);
 
-// ===attempt at looping with forEach+for loop=== (logs all pics in same name)
-firstPicUrlsShort.forEach((shortUrl) => {
-  for (let i = 0; i < firstPicUrlsShort.length; i++) {
-    const stream = fs.createWriteStream(`./memes/${i}.jpg`);
+// === create directory ===
+const folderName = './memes/';
+
+try {
+  if (!fs.existsSync(folderName)) {
+    fs.mkdirSync(folderName);
+  }
+} catch (err) {
+  console.error(err);
+}
+
+// === async attempt 2 digit naming attempt at looping with forEach+for loop === (still wrong pics but proper names)
+
+// something with targeting ONLY the current index in the second part, not the for each?
+
+// // === commented async attempt 2 digit naming attempt at looping with forEach+for loop === (still wrong pics but proper names)
+
+// start of array loop
+for (const shortUrl of firstPicUrlsShort) {
+  // start of file naming and creation loop
+  for (let i = 1; i <= firstPicUrlsShort.length; i++) {
+    // declaration of 2 digit filename
+    const nr = i.toLocaleString(undefined, { minimumIntegerDigits: 2 });
+    // creation of empty file with proper name at location
+    const stream = fs.createWriteStream(`./memes/${nr}.jpg`);
+    // fetching of image data from adress declared in url
     https.get(shortUrl, function (response) {
       response.pipe(stream);
     });
   }
-});
+}
+
+// // === 2 digit naming attempt at looping with forEach+for loop=== (still wrong pics but proper names)
+// firstPicUrlsShort.forEach((shortUrl) => {
+//   for (let i = 1; i <= firstPicUrlsShort.length; i++) {
+//     const nr = i.toLocaleString(undefined, { minimumIntegerDigits: 2 });
+//     const stream = fs.createWriteStream(`./memes/${nr}.jpg`);
+//     https.get(shortUrl, function (response) {
+//       response.pipe(stream);
+//     });
+//   }
+// });
+
+// // ===attempt at looping with forEach+for loop=== (logs 10 pics but the wrong ones + duplicates)
+// function firstPicUrlsShort.forEach((shortUrl) => {
+//    for (let i = 1; i < firstPicUrlsShort.length; i++) {
+//     const stream = fs.createWriteStream(`./memes/${i}.jpg`);
+//      https.get(shortUrl, function (response) {
+//       response.pipe(stream);
+//     });
+//   }
+// });
+
+// // ===attempt at looping with forEach+for loop=== (logs 10 pics but the wrong ones + duplicates)
+// firstPicUrlsShort.forEach((shortUrl) => {
+//   for (let i = 1; i < firstPicUrlsShort.length; i++) {
+//     const stream = fs.createWriteStream(`./memes/${i}.jpg`);
+//     https.get(shortUrl, function (response) {
+//       response.pipe(stream);
+//     });
+//   }
+// });
 
 // // ===attempt at looping with forEach=== (logs all pics in same name)
 // firstPicUrlsShort.forEach((shortUrl) => {

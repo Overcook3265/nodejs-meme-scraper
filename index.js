@@ -27,7 +27,7 @@ const firstPicUrlsShort = firstPicUrls.map(function (adress) {
   return adress.replace('?width=300', '');
 });
 
-// console.log(firstPicUrlsShort);
+console.log(firstPicUrlsShort);
 
 // === create directory ===
 const folderName = './memes/';
@@ -58,7 +58,7 @@ try {
 let nr = 1;
 for (const shortUrl of firstPicUrlsShort) {
   const stream = fs.createWriteStream(
-    `./memes/${nr.toLocaleString(undefined, { minimumIntegerDigits: 2 })}.png`,
+    `./memes/${nr.toLocaleString(undefined, { minimumIntegerDigits: 2 })}.jpg`,
   );
   // console.log(`Created image ${nr}`);
   nr++;

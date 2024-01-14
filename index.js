@@ -10,6 +10,7 @@ const webSite = await axios(
 );
 // ===extract html===
 const websiteHtml = webSite.data;
+// console.log(websiteHtml.slice(0, 5000));
 
 // ===extract urls as arrays===
 const urls = extractUrls(websiteHtml);
@@ -57,7 +58,7 @@ try {
 let nr = 1;
 for (const shortUrl of firstPicUrlsShort) {
   const stream = fs.createWriteStream(
-    `./memes/${nr.toLocaleString(undefined, { minimumIntegerDigits: 2 })}.jpg`,
+    `./memes/${nr.toLocaleString(undefined, { minimumIntegerDigits: 2 })}.png`,
   );
   // console.log(`Created image ${nr}`);
   nr++;

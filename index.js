@@ -1,7 +1,7 @@
+import fs from 'node:fs';
+import https from 'node:https';
 import axios from 'axios';
 import extractUrls from 'extract-urls';
-import fs from 'fs';
-import https from 'https';
 
 // let shortUrl;
 // ===get website code===
@@ -27,7 +27,7 @@ const firstPicUrlsShort = firstPicUrls.map(function (adress) {
   return adress.replace('?width=300', '');
 });
 
-console.log(firstPicUrlsShort);
+// console.log(firstPicUrlsShort);
 
 // === create directory ===
 const folderName = './memes/';

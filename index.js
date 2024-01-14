@@ -41,24 +41,53 @@ try {
 
 // === async attempt 2 digit naming attempt at looping with forEach+for loop === (still wrong pics but proper names)
 
-// something with targeting ONLY the current index in the second part, not the for each?
+// // something with targeting ONLY the current index in the second part, not the for each?
+
+// for (let i = 1; i <= firstPicUrlsShort.length; i++) {
+//   const nr = i.toLocaleString(undefined, { minimumIntegerDigits: 2 });
+//   const stream = fs.createWriteStream(`./memes/${nr}.jpg`);
+//   https.get(firstPicUrlsShort[i], function (response) {
+//     response.pipe(stream);
+//   });
+// }
+
+// === Test with async await
+
+// start of array loop
+let nr = 1;
+for (const shortUrl of firstPicUrlsShort) {
+  const stream = fs.createWriteStream(
+    `./memes/${nr.toLocaleString(undefined, { minimumIntegerDigits: 2 })}.jpg`,
+  );
+  // console.log(`Created image ${nr}`);
+  nr++;
+  https.get(shortUrl, function (response) {
+    response.pipe(stream);
+  });
+}
+
+// create name
+// create file at location
+//
 
 // // === commented async attempt 2 digit naming attempt at looping with forEach+for loop === (still wrong pics but proper names)
 
-// start of array loop
-for (const shortUrl of firstPicUrlsShort) {
-  // start of file naming and creation loop
-  for (let i = 1; i <= firstPicUrlsShort.length; i++) {
-    // declaration of 2 digit filename
-    const nr = i.toLocaleString(undefined, { minimumIntegerDigits: 2 });
-    // creation of empty file with proper name at location
-    const stream = fs.createWriteStream(`./memes/${nr}.jpg`);
-    // fetching of image data from adress declared in url
-    https.get(shortUrl, function (response) {
-      response.pipe(stream);
-    });
-  }
-}
+// // start of array loop
+// for (const shortUrl of firstPicUrlsShort) {
+//   // start of file naming and creation loop
+//   for (let i = 1; i <= firstPicUrlsShort.length; i++) {
+//     // declaration of 2 digit filename
+//     const nr = i.toLocaleString(undefined, { minimumIntegerDigits: 2 });
+//     // creation of empty file with proper name at location
+//     const stream = fs.createWriteStream(`./memes/${nr}.jpg`);
+//     console.log(`Created image ${nr}`);
+//     // fetching of image data from adress declared in url
+//     https.get(shortUrl, function (response) {
+//       response.pipe(stream);
+//       console.log(`Wrote image ${nr}`);
+//     });
+//   }
+// }
 
 // // === 2 digit naming attempt at looping with forEach+for loop=== (still wrong pics but proper names)
 // firstPicUrlsShort.forEach((shortUrl) => {

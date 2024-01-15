@@ -10,7 +10,7 @@ const webSite = await axios(
 );
 // ===extract html===
 const websiteHtml = webSite.data;
-// console.log(websiteHtml.slice(0, 5000));
+// console.log(websiteHtml.slice(0, 7000));
 
 // ===extract urls as arrays===
 const urls = extractUrls(websiteHtml);
@@ -23,10 +23,10 @@ const picUrls = urls.filter(function (str) {
 const firstPicUrls = picUrls.slice(0, 10);
 
 // ===remove width=300 ending where necessary
-const firstPicUrlsShort = firstPicUrls.map(function (adress) {
+/* const firstPicUrlsShort = firstPicUrls.map(function (adress) {
   return adress.replace('?width=300', '');
 });
-
+ */
 // console.log(firstPicUrlsShort);
 
 // === create directory ===
@@ -56,7 +56,7 @@ try {
 
 // start of array loop
 let nr = 1;
-for (const shortUrl of firstPicUrlsShort) {
+for (const shortUrl of firstPicUrls) {
   const stream = fs.createWriteStream(
     `./memes/${nr.toLocaleString(undefined, { minimumIntegerDigits: 2 })}.jpg`,
   );
